@@ -59,7 +59,9 @@ rgb_lcd lcd;
     lcd.print(outPut);
   } else {
     n = analogRead(rotSens);
-    String newOutPut = changeOutPut(outPut, n);
+    String newOutPut = changeOutPut( n);
+    lcd.print(outPut);
+    lcd.setCursor(1, 1);
     lcd.print(newOutPut);
   }
   
@@ -67,7 +69,8 @@ rgb_lcd lcd;
   bool ledPin = (lightVal >= threshold)? LOW : HIGH;
   analogWrite(3, ledPin);
   Serial.println(lightVal);
- 
+ delay(20);
+ lcd.clear();
  
  } 
 
@@ -87,15 +90,15 @@ if (n <=340) {
   return outPut;
 }
 
-String changeOutPut (String person, int n) {
+String changeOutPut (int n) {
  String outPut1;
     if (n <=340) {
-    outPut1 = person + " says Hi";
+    outPut1 = "says Hi";
     
   } else if(n >=341 && n<=681) {
-    outPut1 = person + " is sleeping";
+    outPut1 = "is sleeping";
   } else {
-    outPut1 = person + " is in a meeting" ; 
+    outPut1 = "is in a meeting" ; 
   }
   return outPut1;
 }
